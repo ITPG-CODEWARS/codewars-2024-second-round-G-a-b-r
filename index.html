@@ -18,7 +18,7 @@
             align-items: center;
             height: 100vh;
             text-align: center;
-            padding-top: 1%; /* Добавяне на разстояние между navbar и съдържанието */
+            padding-top: 1%;
         }
 
         nav {
@@ -59,14 +59,7 @@
             font-size: 1rem;
             border-radius: 5px;
             border: none;
-            margin-top: 5px;
-        }
-
-        input[type="url"],
-        input[type="text"],
-        input[type="number"],
-        input[type="password"] {
-            width: 100%;
+            width: 100%; /* Уеднаквяване на ширината на всички полета */
         }
 
         button {
@@ -109,20 +102,14 @@
             cursor: pointer;
             margin-top: 10px;
             transition: background 0.3s ease;
-            display: none; /* Скриваме бутона по подразбиране */
+            display: none;
         }
 
-        #downloadQR:hover {
-            background: #006994;
-        }
         #downloadQR.centered {
-    display: block; /* Показваме бутона когато е генериран URL */
-    margin-top: 1%; /* Разстояние отгоре на бутона */
-    margin-bottom: 5%; /* Разстояние отдолу на бутона */
-}
+            display: block;
+            margin-top: 20px;
+        }
 
-
-        /* Центриране на бутона и QR кода */
         .qr-container {
             display: flex;
             flex-direction: column;
@@ -132,16 +119,10 @@
         }
 
         #qrCodeCanvas {
-            display: none; /* Скриваме канваса за QR код по подразбиране */
+            display: none;
             margin-bottom: 20px;
         }
 
-        #downloadQR.centered {
-            display: block; /* Показваме бутона когато е генериран URL */
-            margin-top: 20px;
-        }
-
-        /* Анимации */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -150,6 +131,15 @@
 
         #result p {
             animation: pulse 1s infinite;
+        }
+
+        /* Добавяме разстояние между бутоните */
+        #downloadQR {
+            margin-bottom: 20px;
+        }
+
+        button:last-child {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -160,9 +150,18 @@
 
     <div>
         <h1>URL Shortener</h1>
+
+        <div id="passwordError" style="color: red; display: none; padding: 15px; background-color: white; border-radius: 5px; margin-top: 10px;">
+            Грешна парола! Опитайте отново.
+        </div>
         <form id="urlForm">
             <label for="longUrl">Дълъг URL адрес:</label>
-            <input type="url" id="longUrl" required>
+            <div style="position: relative;">
+                <input type="url" id="longUrl" required style="padding-right: 1,2%;">
+                <button type="button" id="clearUrl" style="position: absolute; top: 0%; right: -8%; transform: translateY(-50%); background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">
+                    ✖️
+                </button>
+            </div>
             <label for="customAlias">Персонализиран адрес (по избор):</label>
             <input type="text" id="customAlias">
             <label for="length">Дължина на генерирания URL (5-10 символа):</label>
@@ -172,36 +171,31 @@
             <label for="maxUsage">Максимален брой използвания:</label>
             <input type="number" id="maxUsage" min="1" value="10">
             <label for="password">Парола (по избор):</label>
-<div style="position: relative;">
-    <input type="password" id="password">
-    <button type="button" id="togglePassword" style="position: absolute; top: 0; right: 0; background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">
-        👁️
-    </button>
-</div>
+            <div style="position: relative;">
+                <input type="password" id="password">
+                <button type="button" id="togglePassword" style="position: absolute; top: -70%; right: -5%; background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">
+                    👁️
+                </button>
+            </div>
 
             <button type="submit">Генерирай кратък URL</button>
         </form>
 
         <div id="result"></div>
 
-        <!-- Контейнер за QR код и бутон за изтегляне -->
         <div class="qr-container">
             <canvas id="qrCodeCanvas"></canvas>
             <button id="downloadQR" class="centered">Изтегли QR код</button>
         </div>
     </div>
 
-    <!-- Контейнер за съобщение за грешна парола -->
-<div id="passwordError" style="color: red; display: none; padding: 15px; background-color: rgba(255, 0, 0, 0.7); border-radius: 5px; margin-top: 10px;">
-    Грешна парола! Опитайте отново.
-</div>
+    
 
-
-
-
+    
     <script src="index.js"></script>
 </body>
 </html>
+
 
 
 

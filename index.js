@@ -97,6 +97,7 @@ document.getElementById("downloadQR").addEventListener("click", () => {
 });
 
 // Функция за показване на съществуващите кратки URL адреси
+// Функция за показване на съществуващите кратки URL адреси
 function updateShortUrlsList() {
     const listContainer = document.getElementById("shortUrlsList");
     listContainer.innerHTML = ""; // Изчистваме текущия списък
@@ -104,14 +105,19 @@ function updateShortUrlsList() {
     userUrls.forEach(shortUrl => {
         const listItem = document.createElement("li");
         const link = document.createElement("a");
-        link.href = `https://your.domain/${shortUrl}`;
+        link.href = "#"; // Премахваме директната връзка, за да използваме redirect функцията
         link.innerText = `https://your.domain/${shortUrl}`;
-        link.target = "_blank";
+        link.addEventListener("click", function(event) {
+            event.preventDefault(); // Спираме стандартното действие на линка
+            redirectToOriginalUrl(shortUrl); // Извикваме функцията за пренасочване
+        });
         listItem.appendChild(link);
         listContainer.appendChild(listItem);
     });
 }
 
+
+// Пренасочване към оригиналния URL адрес
 // Пренасочване към оригиналния URL адрес
 function redirectToOriginalUrl(shortUrl) {
     const urlData = urlDatabase[shortUrl];
@@ -150,6 +156,7 @@ function redirectToOriginalUrl(shortUrl) {
     window.open(urlData.longUrl, '_blank');
 }
 
+
 // Функции за показване/скриване на съобщение за грешна парола
 function showPasswordError(message) {
     const errorDiv = document.getElementById("passwordError");
@@ -168,6 +175,34 @@ document.getElementById("togglePassword").addEventListener("click", function () 
     const passwordType = passwordField.type === "password" ? "text" : "password";
     passwordField.type = passwordType;
 });
+
+// Функция за показване на съществуващите кратки URL адреси
+function updateShortUrlsList() {
+    const listContainer = document.getElementById("shortUrlsList");
+    listContainer.innerHTML = ""; // Изчистваме текущия списък
+
+    userUrls.forEach(shortUrl => {
+        const listItem = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = "#"; // Премахваме директната връзка, за да използваме redirect функцията
+        link.innerText = `https://your.domain/${shortUrl}`;
+        link.addEventListener("click", function(event) {
+            event.preventDefault(); // Спираме стандартното действие на линка
+            redirectToOriginalUrl(shortUrl); // Извикваме функцията за пренасочване
+        });
+        listItem.appendChild(link);
+        listContainer.appendChild(listItem);
+    });
+}
+
+document.getElementById("clearUrl").addEventListener("click", () => {
+    document.getElementById("longUrl").value = ""; // Изчиства полето за URL
+});
+
+
+
+
+
 
 
 
