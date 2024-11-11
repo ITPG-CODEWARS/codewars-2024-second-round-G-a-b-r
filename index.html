@@ -148,12 +148,14 @@
     <nav>
     </nav>
 
+    <div id="passwordError" style="color: red; display: none; padding: 15px; background-color: white; border-radius: 5px; margin-top: 10px;">
+        Грешна парола! Опитайте отново.
+    </div>
+
     <div>
         <h1>URL Shortener</h1>
 
-        <div id="passwordError" style="color: red; display: none; padding: 15px; background-color: white; border-radius: 5px; margin-top: 10px;">
-            Грешна парола! Опитайте отново.
-        </div>
+        
         <form id="urlForm">
             <label for="longUrl">Дълъг URL адрес:</label>
             <div style="position: relative;">
@@ -188,10 +190,6 @@
             <button id="downloadQR" class="centered">Изтегли QR код</button>
         </div>
     </div>
-
-    
-
-    
     <script src="index.js"></script>
 </body>
 </html>
